@@ -6,11 +6,13 @@ const {
 } = require("../helpers/fsUtils");
 const { v4: uuidv4 } = require('uuid');
 
+// GET Route for retrieving all the notes
 notes.get("/", (req, res) => {
   console.info(`${req.method} request received for notes`);
   readFromFile("./db/db.json").then((data) => res.json(JSON.parse(data)));
 });
 
+// GET Route for a specific note
 notes.get("/:id", (req, res) => {
   const noteId = req.params.id;
   readFromFile("./db/db.json")
@@ -23,12 +25,13 @@ notes.get("/:id", (req, res) => {
     });
 });
 
+// DELETE Route for a specific note
 notes.delete("/:id", (req, res) => {
   const noteId = req.params.id;
   readFromFile("./db/db.json")
     .then((data) => JSON.parse(data))
     .then((json) => {
-      // Make a new array of all tips except the one with the ID provided in the URL
+      // Make a new array of all notes except the one with the ID provided in the URL
       const result = json.filter((note) => note.id !== noteId);
 
       // Save that array to the filesystem
@@ -39,6 +42,7 @@ notes.delete("/:id", (req, res) => {
     });
 });
 
+// POST Route for a new note
 notes.post("/", (req, res) => {
   console.info(`${req.method} request received to submit note`);
   const { title, text } = req.body;
