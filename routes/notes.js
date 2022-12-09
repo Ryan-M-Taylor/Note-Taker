@@ -52,12 +52,7 @@ notes.post("/", (req, res) => {
 
     readAndAppend(newNote, "./db/db.json");
 
-    const response = {
-      status: "success",
-      body: newNote,
-    };
-
-    res.json(response);
+    res.json(`Note added successfully 🚀`);
   } else {
     res.json("Error in posting note");
   }
