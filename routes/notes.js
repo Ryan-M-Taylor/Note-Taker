@@ -11,25 +11,25 @@ notes.get("/", (req, res) => {
   readFromFile("./db/db.json").then((data) => res.json(JSON.parse(data)));
 });
 
-notes.get("/:note_id", (req, res) => {
-  const noteId = req.params.note_id;
+notes.get("/:id", (req, res) => {
+  const noteId = req.params.id;
   readFromFile("./db/db.json")
     .then((data) => JSON.parse(data))
     .then((json) => {
-      const result = json.filter((note) => note.note_id === noteId);
+      const result = json.filter((note) => note.id === noteId);
       return result.length > 0
         ? res.json(result)
         : res.json("No note with that ID");
     });
 });
 
-notes.delete("/:note_id", (req, res) => {
-  const noteId = req.params.note_id;
+notes.delete("/:id", (req, res) => {
+  const noteId = req.params.id;
   readFromFile("./db/db.json")
     .then((data) => JSON.parse(data))
     .then((json) => {
       // Make a new array of all tips except the one with the ID provided in the URL
-      const result = json.filter((note) => note.note_id !== noteId);
+      const result = json.filter((note) => note.id !== noteId);
 
       // Save that array to the filesystem
       writeToFile("./db/db.json", result);
@@ -47,7 +47,7 @@ notes.post("/", (req, res) => {
     const newNote = {
       title,
       text,
-      note_id: uuidv4(),
+      id: uuidv4(),
     };
 
     readAndAppend(newNote, "./db/db.json");
