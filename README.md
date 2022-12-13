@@ -10,4 +10,4 @@ An application called Note Taker that can be used to write, save, and delete not
 
 ## Link to deployed application
 
-This site was built using [Heroku](https://mighty-waters-86622.herokuapp.com/)
+This site was built using [Heroku](https://rmt-note-taker.herokuapp.com)
